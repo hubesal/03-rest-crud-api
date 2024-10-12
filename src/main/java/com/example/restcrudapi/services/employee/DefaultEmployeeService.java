@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,14 +22,9 @@ public class DefaultEmployeeService implements EmployeeService {
     }
 
     @Override
-    public Employee find(int id) {
-        var employee = employeeRepository.find(id);
+    public Optional<Employee> find(int id) {
 
-        if (employee == null) {
-            throw new EmployeeNotFoundException("Employee not found for id: " + id);
-        }
-
-        return employee;
+        return employeeRepository.findById(id);
     };
 
     @Override
@@ -40,6 +36,6 @@ public class DefaultEmployeeService implements EmployeeService {
     @Override
     @Transactional
     public void delete(int id) {
-        employeeRepository.delete(id);
+        employeeRepository.deleteById(id);
     }
 }

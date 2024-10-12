@@ -1,5 +1,6 @@
 package com.example.restcrudapi.controllers;
 
+import com.example.restcrudapi.exceptions.EmployeeNotFoundException;
 import com.example.restcrudapi.models.Employee;
 import com.example.restcrudapi.services.employee.EmployeeService;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +25,12 @@ public class EmployeeController {
 
     @GetMapping("/employees/{id}")
     public Employee getById(@PathVariable int id) {
-        Employee employee;
-        employee = employeeService.find(id);
+        var employee = employeeService.find(id);
+        if (employee.isEmpty()) {
+            throw new EmployeeNotFoundException("Employee not found for id: " + id);
+        }
 
-        return employee;
+        return employee.get();
     }
 
     @PostMapping("/employees")

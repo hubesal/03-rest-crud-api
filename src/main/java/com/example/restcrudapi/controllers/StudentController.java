@@ -4,7 +4,6 @@ import com.example.restcrudapi.exceptions.StudentNotFoundException;
 import com.example.restcrudapi.models.Student;
 import jakarta.annotation.PostConstruct;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
