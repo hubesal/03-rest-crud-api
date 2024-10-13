@@ -12,46 +12,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/magic-api/members")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class EmployeeController {
 
     private final EmployeeService employeeService;
-
-    @GetMapping("/employees")
-    public List<Employee> findAll() {
-        return employeeService.findAll();
-    }
-
-    @GetMapping("/employees/{id}")
+    @GetMapping("/{id}")
     public Employee getById(@PathVariable int id) {
-        var employee = employeeService.find(id);
-        if (employee.isEmpty()) {
-            throw new EmployeeNotFoundException("Employee not found for id: " + id);
-        }
+        var employee = employeeService.find(id).orElseThrow(
+                () -> new EmployeeNotFoundException("Employee not found for id: " + id)
+        );
 
-        return employee.get();
+        return employee;
     }
 
-    @PostMapping("/employees")
-    public ResponseEntity<Employee> create(@RequestBody Employee employee) {
-        var savedEmployee = employeeService.save(employee);
-
-        return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/employees/{id}")
-    public ResponseEntity<Employee> update(@PathVariable int id, @RequestBody Employee employee) {
-       employee.setId(id);
-       var savedEmployee = employeeService.save(employee);
-
-       return new ResponseEntity<>(savedEmployee, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/employees/{id}")
-    public ResponseEntity<Void> delete(@PathVariable int id) {
-        employeeService.delete(id);
-
-        return ResponseEntity.noContent().build();
-    }
  }
