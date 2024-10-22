@@ -15,7 +15,7 @@ public class StudentExceptionHandler {
     public ResponseEntity<ErrorResponse> handleException(StudentNotFoundException ex) {
         var error = new ErrorResponse();
 
-        error.setStatus(HttpStatus.NOT_FOUND.value());
+        // error.setStatus(HttpStatus.NOT_FOUND.value());
         error.setErrorMessage(ex.getMessage());
         error.setTimestamp(System.currentTimeMillis());
         //we can instantiate above ones in the constructor too - example below

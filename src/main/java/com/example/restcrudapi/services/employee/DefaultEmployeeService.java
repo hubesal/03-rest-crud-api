@@ -17,22 +17,10 @@ public class DefaultEmployeeService implements EmployeeService {
     private final EmployeeRepository employeeRepository;
 
     @Override
-    public List<Employee> findAll() {
-        return employeeRepository.findAll();
-    }
-
-    @Override
     public Optional<Employee> find(int id) {
 
         return employeeRepository.findById(id);
     };
-
-    @Override
-    @Transactional
-    public Employee save(Employee employee) {
-        return employeeRepository.save(employee);
-    }
-
     @Override
     @Transactional
     public void delete(int id) {
