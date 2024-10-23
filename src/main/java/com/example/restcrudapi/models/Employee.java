@@ -1,5 +1,6 @@
 package com.example.restcrudapi.models;
 
+import com.example.restcrudapi.validators.UniqueEmail;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -30,11 +31,12 @@ public @Data class  Employee {
     @Column(name="email")
     @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$",
             message="value must meet email format criteria")
+    @UniqueEmail
+    @NotBlank(message="email is required")
     private String email;
 
     @Min(0)
     @Max(100)
-    @NotNull
     @Column(name="number_of_points")
     private int points;
 
