@@ -10,4 +10,6 @@ public interface EmployeeService {
     Optional<Employee> find(int id);
 
     void delete(int id);
+
+    boolean exists(String email);
 }

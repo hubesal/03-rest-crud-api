@@ -10,5 +10,8 @@ import java.util.Optional;
 @RepositoryRestResource(path="members")
 @Transactional
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
-    Optional<Employee> findByEmail(String email);
+    boolean existsByEmail(String email);
+
+    Optional<Employee> getByEmail(String email);
+
 }

@@ -26,4 +26,9 @@ public class DefaultEmployeeService implements EmployeeService {
     public void delete(int id) {
         employeeRepository.deleteById(id);
     }
+
+    @Override
+    public boolean exists(String email) {
+        return employeeRepository.existsByEmail(email);
+    }
 }
